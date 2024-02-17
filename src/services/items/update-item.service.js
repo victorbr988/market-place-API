@@ -19,15 +19,12 @@ class UpdateItemService {
       price,
       category_id,
       seler_id: user_id,
-      situation: 1
+      situation: 1,
+      updated_at: connection.fn.now(),
     };
 
     try {
-      await connection.transaction(async (begin_try) => {
-        await begin_try('condos').update(data).where({ id });
-
-        await begin_try.commit()
-      })
+      await connection('items').update(data).where({ id });
     } catch (error) {
       throw error;
     }

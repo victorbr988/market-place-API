@@ -5,13 +5,14 @@ const condo_schema = z.object({
   name: z.string().min(4).max(92),
   description: z.string().min(4).max(255),
   type: z.coerce.number(),
-  price: z.coerce.number(),
+  price: z.number(),
   category_id: z.string(),
 });
 
 class UpdateItemController {
   static async handler(request, response) {
     const { id: user_id, role } = request.user;
+    const {id: item_id } = request.params
     const { name, description, type, price, category_id } = condo_schema.parse(request.body);
 
     if (role !== 1) {
@@ -20,6 +21,7 @@ class UpdateItemController {
 
     try {
       const id = await UpdateItemService.handler({
+        id: item_id,
         name,
         description,
         type,
