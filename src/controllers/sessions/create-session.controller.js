@@ -5,7 +5,7 @@ const { decode } = require('../../libs/token');
 
 const credentials_schema = z.object({
   email: z.string().email(),
-  password: z.string().min(6).max(24),
+  password: z.string().optional(),
 });
 
 class CreateSessionController {

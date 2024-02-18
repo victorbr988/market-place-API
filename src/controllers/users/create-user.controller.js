@@ -7,7 +7,6 @@ const user_schema = z.object({
   password: z.string().min(8).max(32),
   phone: z
     .string()
-    .regex(/^\d{11}$/)
     .optional(),
   condo_id: z.string()
   // .default(null),

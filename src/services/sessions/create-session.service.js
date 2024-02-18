@@ -13,9 +13,9 @@ class CreateSessionService {
       throw new Error('User not found');
     }
 
-    const is_password_matching = await compare_text(user.password, password);
+    const is_password_matching = password && await compare_text(user.password, password);
 
-    if (!is_password_matching) {
+    if ( password && !is_password_matching) {
       throw new Error('Passwords does not match');
     }
 

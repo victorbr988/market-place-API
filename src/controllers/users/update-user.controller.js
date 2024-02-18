@@ -6,7 +6,6 @@ const user_schema = z.object({
   email: z.string().email().min(3).max(92).optional(),
   phone: z
     .string()
-    .regex(/^\d{11}$/)
     .optional(),
 });
 
