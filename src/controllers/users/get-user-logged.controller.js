@@ -14,6 +14,7 @@ class GetUserLoggedController {
         username: user.name,
         email: user.email,
         phone: user.phone,
+        condo_id: user.condo_id,
         session: {
           expiresIn: tokenExpiresInMiliseconds
         }
