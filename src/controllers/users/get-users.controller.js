@@ -5,13 +5,14 @@ const filters_schema = z.object({
   page: z.number().int().min(1).default(1),
   role: z.coerce.number().optional(),
   condo_id: z.string().optional(),
+  search: z.string().optional()
 });
 
 class GetUsersController {
   static async handler(request, response) {
-    const { page, role, condo_id } = filters_schema.parse(request.query);
+    const { page, role, condo_id, search } = filters_schema.parse(request.query);
 
-    const users = await GetUsersService.handler({ page, role, condo_id });
+    const users = await GetUsersService.handler({ page, role, condo_id, search });
 
     return response.json(users);
   }

@@ -7,15 +7,16 @@ const user_schema = z.object({
   phone: z
     .string()
     .optional(),
+  role: z.coerce.number().optional()
 });
 
 class UpdateUserController {
   static async handler(request, response) {
     const { id } = request.params;
-    const { email, name, phone } = user_schema.parse(request.body);
+    const { email, name, phone, role } = user_schema.parse(request.body);
 
     try {
-      await UpdateUserService.handler({ id, name, email, phone });
+      await UpdateUserService.handler({ id, name, email, phone, role });
 
       return response.status(200).json({ message: 'User updated' });
     } catch (error) {

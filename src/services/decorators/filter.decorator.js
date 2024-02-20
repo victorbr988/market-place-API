@@ -23,6 +23,22 @@ class FilterDecorator {
     return this;
   }
 
+  filterByRole(column, userRole) {
+    if (userRole > 0) {
+      this.query = this.query.where(column, userRole);
+    }
+    
+    return this;
+  }
+
+  filterByCondo(column, condo_id) {
+    if (condo_id.length > 0) {
+      this.query = this.query.where(column, condo_id);
+    }
+    
+    return this;
+  }
+
   queryResult() {
     return this.query;
   }

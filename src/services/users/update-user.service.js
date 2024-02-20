@@ -2,7 +2,7 @@ const { connection } = require('../../libs/connection');
 const { remove_accent } = require('../../libs/utils');
 
 class UpdateUserService {
-  static async handler({ id, name, email, phone }) {
+  static async handler({ id, name, email, phone, role }) {
     const user = await connection('users as u')
       .select('*')
       .where({ 'u.id': id, 'u.deleted_at': null })
@@ -17,6 +17,7 @@ class UpdateUserService {
       name_clean: name && remove_accent(name).toLowerCase(),
       email,
       phone,
+      role: role ? role : user.role,
       updated_at: connection.fn.now(),
     };
 
