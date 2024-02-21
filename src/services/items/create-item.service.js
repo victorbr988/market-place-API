@@ -32,12 +32,8 @@ class CreateItemService {
         throw new Error('User not found or has not permission')
       }
 
-      await connection.transaction(async (begin_try) => {
-        await begin_try('items').insert(data);
-        await begin_try('images').insert(imagesData)
-        
-        await begin_try.commit()
-      })
+      await connection('items').insert(data)
+      await connection('images').insert(imagesData)
 
       return data.id;
     } catch (error) {

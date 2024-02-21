@@ -2,7 +2,7 @@ const { z } = require("zod");
 const { GetCategoriesService } = require("../../services/categories/get-categories.services");
 
 const filter_category = z.object({
-  type: z.coerce.number().optional(),
+  type: z.string().optional(),
 })
 
 class GetCategoriesController {

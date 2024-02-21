@@ -23,6 +23,14 @@ class FilterDecorator {
     return this;
   }
 
+  filterByCategoryType(column, category_type) {
+    if (category_type) {
+      this.query = this.query.where(column, category_type);
+    }
+    
+    return this;
+  }
+
   filterByRole(column, userRole) {
     if (userRole > 0) {
       this.query = this.query.where(column, userRole);

@@ -4,15 +4,15 @@ const { aggregateByCategory } = require('./aggregate-by-category-items');
 const { remove_accent } = require("../../libs/utils");
 
 class GetItemsService {
-  static async handler({ tab, search, category }) {
-    console.log(category)
+  static async handler({ tab, search, category, categoryType }) {
     
     const baseQuery = () => connection('items as i')
-      .select('i.*', connection.raw('ARRAY_AGG(img.url) as images'),'c.name as categoryName', 'c.name_clean as categoryNameClean')
+      .select('i.*', connection.raw('ARRAY_AGG(img.url) as images'),'c.name as categoryName', 'c.name_clean as categoryNameClean', 'ct.id as categoryTypeId')
       .join('images as img', 'i.id', '=', 'img.item_id')
       .join('categories as c', 'i.category_id', '=', 'c.id')
+      .join('category_type as ct', 'c.type_id', '=', 'ct.id')
       .where({ 'i.deleted_at': null })
-      .groupBy('i.id', 'c.name', 'c.name_clean')
+      .groupBy('i.id', 'c.name', 'c.name_clean', 'ct.id')
       .orderBy('i.name', 'asc');
 
     const condosQuery = () => connection('condos as c')
@@ -26,6 +26,7 @@ class GetItemsService {
     const tabServices = tab === 2 ? tab: 2;
     
     const productsQuery = new FilterDecorator(baseQuery)
+      .filterByCategoryType('ct.id', categoryType)
       .filterByTab('i.type', tabProducts)
       .filterByCategory('c.name_clean', category || '')
       .filterByName('i.name_clean', remove_accent(search?.toLowerCase() || ''))
@@ -35,6 +36,7 @@ class GetItemsService {
       .filterByTab('i.type', tabServices)
       .filterByName('i.name_clean', remove_accent(search?.toLowerCase() || ''))
       .filterByCategory('c.name_clean', category || '')
+      .filterByCategoryType('ct.id', categoryType)
       .queryResult()
 
     const condoFilteredQuery = new FilterDecorator(condosQuery)
