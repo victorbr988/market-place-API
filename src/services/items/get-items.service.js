@@ -36,7 +36,7 @@ class GetItemsService {
       .filterByTab('i.type', tabServices)
       .filterByName('i.name_clean', remove_accent(search?.toLowerCase() || ''))
       .filterByCategory('c.name_clean', category || '')
-      .filterByCategoryType('ct.id', categoryType)
+      .filterByCategoryType('ct.id', categoryType || '')
       .queryResult()
 
     const condoFilteredQuery = new FilterDecorator(condosQuery)

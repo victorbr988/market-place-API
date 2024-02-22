@@ -24,6 +24,7 @@ class FilterDecorator {
   }
 
   filterByCategoryType(column, category_type) {
+    console.log(category_type)
     if (category_type) {
       this.query = this.query.where(column, category_type);
     }

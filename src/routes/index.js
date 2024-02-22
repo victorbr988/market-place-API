@@ -42,7 +42,7 @@ routes.get('/users/:id', GetUserController.handler);
 routes.patch('/users/:id', UpdateUserController.handler);
 
 /* Condos */
-routes.post('/condos', ProtectedRouteMiddleware.handler, uploads.array("file"), CreateCondoController.handler);
+routes.post('/condos', uploads.array("file"), CreateCondoController.handler);
 routes.get('/condos', GetCondosController.handler)
 routes.get('/condos/:id', GetCondoController.handler)
 routes.patch('/condos/:id', ProtectedRouteMiddleware.handler, UpdateCondoController.handler)

@@ -1,11 +1,9 @@
 const { createId } = require('@paralleldrive/cuid2');
 const { remove_accent } = require('../../libs/utils');
 const { connection } = require('../../libs/connection');
-const { GetUserService } = require('../users/get-user.service');
 
 class CreateCondoService {
-  static async handler({ name, description, latitude, longitude, images, user_id }) {
-    const LIQUIDATOR_ROLE = 0
+  static async handler({ name, description, latitude, longitude, images }) {
     
     const data = {
       id: createId(),
@@ -23,19 +21,9 @@ class CreateCondoService {
     }))
 
     try {
-      const userFound = await GetUserService.handler({ id: user_id })
-
-      if ( !userFound || userFound.role !== LIQUIDATOR_ROLE ) {
-        throw new Error('User not found or has not permission')
-      }
-
-      await connection.transaction(async (begin_try) => {
-        await begin_try('condos').insert(data)
-        await begin_try('images').insert(imagesData)
-
-        await begin_try.commit();
-      })
-
+      connection("condos").insert(data)
+      connection("images").insert(imagesData)
+      
       return data.id;
     } catch (error) {
       throw error;

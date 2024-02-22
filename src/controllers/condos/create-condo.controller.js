@@ -11,7 +11,6 @@ const condo_schema = z.object({
 
 class CreateCondoController {
   static async handler(request, response) {
-    const { id: user_id } = request.user;
     const images = request.files
     const { name, description, latitude, longitude } = condo_schema.parse(request.body);
 
