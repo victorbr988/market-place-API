@@ -8,7 +8,6 @@ class GetCondosService {
       .where({ 'c.deleted_at': null })
       .groupBy('c.id')
       .orderBy('c.name_clean', 'asc')
-      .first();
 
 
     return {
