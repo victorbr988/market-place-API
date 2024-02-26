@@ -11,8 +11,8 @@ async function seed(knex) {
       name: "Vila serena",
       name_clean: "vila serena",
       description: " Oferece aos seus residentes uma combinação de privacidade, segurança, comodidades compartilhadas e uma sensação de comunidade, tornando-se uma opção popular para diversos perfis de famílias e indivíduos que valorizam o estilo de vida comunitário.",
-      latitude: -8.300648,
-      longitude: -35.9519851
+      latitude: "-8.300648",
+      longitude: "-35.9519851"
     },
   ]);
 }

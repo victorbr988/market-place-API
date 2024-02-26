@@ -7,6 +7,7 @@ class GetCondosController {
 
       return response.status(200).json(condos);
     } catch (error) {
+      console.log(error)
       throw error;
     }
   }
