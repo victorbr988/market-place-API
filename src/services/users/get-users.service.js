@@ -18,9 +18,9 @@ class GetUsersService {
       .first();
 
     const users_query = new FilterDecorator(all_users_query)
-      .filterByCondo('u.condo_id', condo_id)
-      .filterByRole('u.role', role)
-      .filterByName('u.name',  search)
+      .filterByCondo('u.condo_id', condo_id || "")
+      .filterByRole('u.role', role || "")
+      .filterByName('u.name',  search || "")
       .queryResult()
 
     const total_query = new FilterDecorator(total_query_by_all_users)

@@ -22,7 +22,6 @@ class CreateCondoController {
         latitude,
         longitude,
         images,
-        user_id,
       });
 
       return response.status(201).json({ condo_id: id });
